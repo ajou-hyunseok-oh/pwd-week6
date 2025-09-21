@@ -1,38 +1,38 @@
 [
   {
     "id": 1,
-    "name": "푸림식당",
+    "name": "송림식당",
     "category": "한식",
-    "location": "경기 수원시 팔달구 월드컵로193번길 21 1층",
+    "location": "경기 수원시 영통구 월드컵로193번길 21 원천동",
     "priceRange": "7,000-13,000원",
     "rating": 4.99,
-    "description": "깔끔한 반찬과 정성 가득한 국물이 유명한 교내 대표 한식 식당입니다.",
-    "recommendedMenu": ["두부전골", "김치찌개", "소불고기", "제육볶음"],
+    "description": "최고의 한식 맛집입니다.",
+    "recommendedMenu": ["순두부", "김치찌개","소불고기", "제육볶음"],
     "likes": 0,
-    "image": "https://images.example.com/restaurants/purim.jpg"
+    "image": "https://mblogthumb-phinf.pstatic.net/MjAyMjA2MTJfODEg/MDAxNjU0OTYzNTM3MjE1.1BfmrmOsz_B6DBHAnhQSs6qfNIDnssofR-DrzMfigIIg.JHHDheG6ifJjtfKUqLss_mLXWFE9fNJ5BmepNUVXSOog.PNG.cary63/image.png?type=w966"
   },
   {
     "id": 2,
     "name": "별미떡볶이",
     "category": "분식",
-    "location": "경기 수원시 팔달구 아주로 42",
+    "location": "경기 수원시 영통구 아주로 42 아카데미빌딩",
     "priceRange": "7,000-10,000원",
     "rating": 4.92,
-    "description": "매콤달콤한 국물 떡볶이와 바삭한 튀김이 인기인 분식집입니다.",
-    "recommendedMenu": ["모둠떡볶이", "김말이", "오뎅", "순대"],
+    "description": "바삭한 튀김과 함께하는 행복한 한입",
+    "recommendedMenu": ["떡볶이", "튀김", "순대", "어묵"],
     "likes": 0,
-    "image": "https://images.example.com/restaurants/star-tteokbokki.jpg"
+    "image": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA4MTJfMjcg%2FMDAxNzU0OTQ5ODk1Mjg0.GR6i3mNpJJXyqQrozGEJ65InCDBGlEmxc0aCeVHncJgg.sduDPX67J8hhoGxq4vLohpS4dXk1w-706dQLPfVs1iwg.JPEG%2Foutput%25A3%25DF1564208956.jpg"
   },
   {
     "id": 3,
-    "name": "소고",
+    "name": "SOGO",
     "category": "일식",
-    "location": "경기 수원시 팔달구 월드컵로193번길 7",
+    "location": "경기 수원시 영통구 월드컵로193번길 7",
     "priceRange": "10,000-16,000원",
     "rating": 4.89,
-    "description": "담백한 모밀과 푸짐한 돈카츠로 유명한 깔끔한 일식 전문점입니다.",
-    "recommendedMenu": ["메밀소바", "돈카츠벤또", "코돈블루"],
+    "description": "일식 맛집, 구 허수아비,",
+    "recommendedMenu": ["냉모밀", "김치돈까스나베", "코돈부르"],
     "likes": 0,
-    "image": "https://images.example.com/restaurants/sogo.jpg"
+    "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190707_63%2F1562462598960nPDMy_JPEG%2FW7iKQEhTMzCF3flC1t0pzgzF.jpeg.jpg"
   }
 ]
