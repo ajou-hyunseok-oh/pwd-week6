@@ -208,3 +208,6 @@ curl -X POST https://pwd-week4-<username>.onrender.com/api/restaurants/popular
 - GitHub ↔ Render 배포 흐름을 경험했습니다.
 
 다음 주차에서는 이 API에 데이터베이스와 인증을 추가해 확장할 예정입니다. 계속해서 화이팅! ✨
+
+# AI도구 사용이 신입 프로그래머에 미치는 영향 설문 조사 (스타벅스 커피 쿠폰)
+(https://forms.gle/eho8ud3s8DaGPtTM6)
