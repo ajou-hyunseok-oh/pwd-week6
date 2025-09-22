@@ -151,6 +151,7 @@ src/
  ├─ data/restaurants.json # 시드 데이터
  └─ utils/asyncHandler.js # 공통 비동기 에러 래퍼
 tests/                    # 모듈 테스트 코드
+server.js                 # Node Entry Point
 ```
 
 ### Step 5. 프로젝트 기능 구현
