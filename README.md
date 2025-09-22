@@ -154,7 +154,474 @@ tests/                    # 모듈 테스트 코드
 ```
 
 ### Step 5. 프로젝트 기능 구현
-- 
+
+```js
+// server.js
+const createApp = require('./src/app');
+
+const PORT = process.env.PORT || 3000;
+const app = createApp();
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+}
+
+module.exports = app;
+```
+
+```js
+// src/app.js
+const express = require('express');
+const cors = require('cors');
+const restaurantsRouter = require('./routes/restaurants.routes');
+const notFound = require('./middleware/notFound.middleware');
+const errorHandler = require('./middleware/error.middleware');
+
+function createApp() {
+  const app = express();
+
+  app.use(cors());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+  app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+  });
+
+  app.use('/api/restaurants', restaurantsRouter);
+
+  app.use(notFound);
+  app.use(errorHandler);
+
+  return app;
+}
+
+module.exports = createApp;
+```
+
+- src/data/restaurants.json
+```json
+[
+  {
+    "id": 1,
+    "name": "송림식당",
+    "category": "한식",
+    "location": "경기 수원시 영통구 월드컵로193번길 21 원천동",
+    "priceRange": "7,000-13,000원",
+    "rating": 4.99,
+    "description": "최고의 한식 맛집입니다.",
+    "recommendedMenu": ["순두부", "김치찌개","소불고기", "제육볶음"],
+    "likes": 0,
+    "image": "https://mblogthumb-phinf.pstatic.net/MjAyMjA2MTJfODEg/MDAxNjU0OTYzNTM3MjE1.1BfmrmOsz_B6DBHAnhQSs6qfNIDnssofR-DrzMfigIIg.JHHDheG6ifJjtfKUqLss_mLXWFE9fNJ5BmepNUVXSOog.PNG.cary63/image.png?type=w966"
+  },
+  {
+    "id": 2,
+    "name": "별미떡볶이",
+    "category": "분식",
+    "location": "경기 수원시 영통구 아주로 42 아카데미빌딩",
+    "priceRange": "7,000-10,000원",
+    "rating": 4.92,
+    "description": "바삭한 튀김과 함께하는 행복한 한입",
+    "recommendedMenu": ["떡볶이", "튀김", "순대", "어묵"],
+    "likes": 0,
+    "image": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA4MTJfMjcg%2FMDAxNzU0OTQ5ODk1Mjg0.GR6i3mNpJJXyqQrozGEJ65InCDBGlEmxc0aCeVHncJgg.sduDPX67J8hhoGxq4vLohpS4dXk1w-706dQLPfVs1iwg.JPEG%2Foutput%25A3%25DF1564208956.jpg"
+  },
+  {
+    "id": 3,
+    "name": "SOGO",
+    "category": "일식",
+    "location": "경기 수원시 영통구 월드컵로193번길 7",
+    "priceRange": "10,000-16,000원",
+    "rating": 4.89,
+    "description": "일식 맛집, 구 허수아비,",
+    "recommendedMenu": ["냉모밀", "김치돈까스나베", "코돈부르"],
+    "likes": 0,
+    "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190707_63%2F1562462598960nPDMy_JPEG%2FW7iKQEhTMzCF3flC1t0pzgzF.jpeg.jpg"
+  }
+]
+```
+
+```js
+// src/routes/restaurants.routes.js
+const express = require('express');
+const restaurantsController = require('../controllers/restaurants.controller');
+
+const router = express.Router();
+
+router.get('/', restaurantsController.getRestaurants);
+router.get('/sync-demo', restaurantsController.getRestaurantsSync);
+router.get('/popular', restaurantsController.getPopularRestaurants);
+router.get('/:id', restaurantsController.getRestaurant);
+router.post('/', restaurantsController.createRestaurant);
+router.post('/reset-demo', restaurantsController.resetDemoData);
+
+module.exports = router;
+```
+
+```js
+// src/middleware/error.middleware.js
+module.exports = function errorHandler(err, req, res, next) {
+  const status = err.statusCode || 500;
+  const payload = {
+    error: {
+      message: err.message || 'Internal Server Error'
+    }
+  };
+
+  if (process.env.NODE_ENV !== 'production' && err.stack) {
+    payload.error.stack = err.stack;
+  }
+
+  res.status(status).json(payload);
+};
+```
+
+```js
+// src/middleware/notFound.middleware.js
+module.exports = function notFound(req, res) {
+  res.status(404).json({ error: { message: 'Resource not found' } });
+};
+```
+
+```js
+// src/controllers/restaurants.controller.js
+const restaurantService = require('../services/restaurants.service');
+const asyncHandler = require('../utils/asyncHandler');
+
+const normaliseMenu = (menu) => {
+  if (!menu) return [];
+  if (Array.isArray(menu)) return menu;
+  if (typeof menu === 'string') {
+    return menu
+      .split(',')
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+  return [];
+};
+
+exports.getRestaurants = asyncHandler(async (req, res) => {
+  const restaurants = await restaurantService.getAllRestaurants();
+  res.json({ data: restaurants });
+});
+
+exports.getRestaurantsSync = (req, res) => {
+  const restaurants = restaurantService.getAllRestaurantsSync();
+  res.json({
+    data: restaurants,
+    meta: {
+      execution: 'synchronous'
+    }
+  });
+};
+
+exports.getRestaurant = asyncHandler(async (req, res) => {
+  const restaurant = await restaurantService.getRestaurantById(req.params.id);
+
+  if (!restaurant) {
+    res.status(404).json({ error: { message: 'Restaurant not found' } });
+    return;
+  }
+
+  res.json({ data: restaurant });
+});
+
+exports.getPopularRestaurants = asyncHandler(async (req, res) => {
+  const limit = req.query.limit ? Number(req.query.limit) : 5;
+  const restaurants = await restaurantService.getPopularRestaurants(limit);
+  res.json({ data: restaurants });
+});
+
+exports.createRestaurant = asyncHandler(async (req, res) => {
+  const payload = {
+    ...req.body,
+    recommendedMenu: normaliseMenu(req.body?.recommendedMenu)
+  };
+
+  const restaurant = await restaurantService.createRestaurant(payload);
+  res.status(201).json({ data: restaurant });
+});
+
+exports.resetDemoData = asyncHandler(async (req, res) => {
+  restaurantService.resetStore();
+  const restaurants = await restaurantService.getAllRestaurants();
+  res.json({ data: restaurants });
+});
+```
+
+```js
+// src/services/restaurants.service.js
+const path = require('path');
+const { readFile } = require('fs/promises');
+const { readFileSync } = require('fs');
+const Restaurant = require('../models/restaurant.model');
+
+const DATA_PATH = path.join(__dirname, '..', 'data', 'restaurants.json');
+let restaurantCache = loadRestaurantsSync();
+
+function loadRestaurantsSync() {
+  const raw = readFileSync(DATA_PATH, 'utf8');
+  const parsed = JSON.parse(raw);
+  return parsed.map((item) => new Restaurant(item));
+}
+
+async function loadRestaurantsAsync() {
+  const raw = await readFile(DATA_PATH, 'utf8');
+  const parsed = JSON.parse(raw);
+  return parsed.map((item) => new Restaurant(item));
+}
+
+async function ensureCache() {
+  if (!restaurantCache || restaurantCache.length === 0) {
+    restaurantCache = await loadRestaurantsAsync();
+  }
+  return restaurantCache;
+}
+
+function nextRestaurantId() {
+  return restaurantCache.reduce((max, restaurant) => Math.max(max, restaurant.id), 0) + 1;
+}
+
+function cloneCollection(collection) {
+  return collection.map((restaurant) => new Restaurant(restaurant));
+}
+
+// Simulates non-blocking I/O latency so students can compare async vs sync flows.
+async function simulateLatency(delayInMs = 20) {
+  return new Promise((resolve) => setTimeout(resolve, delayInMs));
+}
+
+async function getAllRestaurants() {
+  await ensureCache();
+  await simulateLatency();
+  return cloneCollection(restaurantCache);
+}
+
+function getAllRestaurantsSync() {
+  if (!restaurantCache || restaurantCache.length === 0) {
+    restaurantCache = loadRestaurantsSync();
+  }
+  return cloneCollection(restaurantCache);
+}
+
+async function getRestaurantById(id) {
+  await ensureCache();
+  await simulateLatency();
+  const numericId = Number(id);
+  return restaurantCache.find((restaurant) => restaurant.id === numericId) || null;
+}
+
+async function getPopularRestaurants(limit = 5) {
+  const restaurants = await getAllRestaurants();
+  return restaurants
+    .sort((a, b) => b.rating - a.rating)
+    .slice(0, limit);
+}
+
+async function createRestaurant(payload) {
+  await ensureCache();
+  await simulateLatency();
+
+  const requiredFields = ['name', 'category', 'location'];
+  const missingField = requiredFields.find((field) => !payload[field]);
+
+  if (missingField) {
+    const error = new Error(`'${missingField}' is required`);
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const restaurant = new Restaurant({
+    id: nextRestaurantId(),
+    name: payload.name,
+    category: payload.category,
+    location: payload.location,
+    priceRange: payload.priceRange ?? '정보 없음',
+    rating: payload.rating ?? 0,
+    description: payload.description ?? '',
+    recommendedMenu: payload.recommendedMenu ?? [],
+    likes: 0,
+    image: payload.image ?? ''
+  });
+
+  restaurantCache = [...restaurantCache, restaurant];
+  return new Restaurant(restaurant);
+}
+
+function resetStore() {
+  restaurantCache = loadRestaurantsSync();
+}
+
+module.exports = {
+  getAllRestaurants,
+  getAllRestaurantsSync,
+  getRestaurantById,
+  getPopularRestaurants,
+  createRestaurant,
+  resetStore,
+  loadRestaurantsSync,
+  loadRestaurantsAsync,
+};
+```
+
+```js
+// src/models/restaurant.model.js
+class Restaurant {
+  constructor({
+    id,
+    name,
+    category,
+    location,
+    priceRange,
+    rating,
+    description,
+    recommendedMenu = [],
+    likes = 0,
+    image = ''
+  }) {
+    this.id = Number(id);
+    this.name = name;
+    this.category = category;
+    this.location = location;
+    this.priceRange = priceRange;
+    this.rating = Number(rating);
+    this.description = description;
+    this.recommendedMenu = [...recommendedMenu];
+    this.likes = Number(likes);
+    this.image = image;
+  }
+
+  updateLikes(likes) {
+    this.likes = Number(likes);
+    return this;
+  }
+}
+
+module.exports = Restaurant;
+```
+
+```js
+// src/utils/
+module.exports = (handler) => (req, res, next) => {
+  Promise.resolve(handler(req, res, next)).catch(next);
+};
+```
+
+- 테스트 코드 작성성
+```js
+// tests/restaurants.routes.test.js
+const request = require('supertest');
+const createApp = require('../src/app');
+const restaurantService = require('../src/services/restaurants.service');
+
+describe('Restaurant routes', () => {
+  let app;
+
+  beforeEach(() => {
+    restaurantService.resetStore();
+    app = createApp();
+  });
+
+  test('GET /api/restaurants returns a list', async () => {
+    const response = await request(app).get('/api/restaurants');
+    expect(response.status).toBe(200);
+    expect(response.body.data).toBeInstanceOf(Array);
+  });
+
+  test('GET /api/restaurants/sync-demo flags synchronous execution', async () => {
+    const response = await request(app).get('/api/restaurants/sync-demo');
+    expect(response.status).toBe(200);
+    expect(response.body.meta.execution).toBe('synchronous');
+  });
+
+  test('GET /api/restaurants/:id returns an item', async () => {
+    const response = await request(app).get('/api/restaurants/1');
+    expect(response.status).toBe(200);
+    expect(response.body.data.id).toBe(1);
+  });
+
+  test('GET /api/restaurants/:id handles missing items', async () => {
+    const response = await request(app).get('/api/restaurants/999');
+    expect(response.status).toBe(404);
+    expect(response.body.error.message).toContain('not found');
+  });
+
+  test('POST /api/restaurants validates payload', async () => {
+    const response = await request(app)
+      .post('/api/restaurants')
+      .send({ name: '테스트' })
+      .set('Content-Type', 'application/json');
+
+    expect(response.status).toBe(400);
+    expect(response.body.error.message).toContain('category');
+  });
+
+  test('POST /api/restaurants creates a restaurant', async () => {
+    const payload = {
+      name: '새로운 식당',
+      category: '카페',
+      location: '캠퍼스 타운',
+    };
+
+    const response = await request(app)
+      .post('/api/restaurants')
+      .send(payload)
+      .set('Content-Type', 'application/json');
+
+    expect(response.status).toBe(201);
+    expect(response.body.data.name).toBe(payload.name);
+  });
+});
+```
+
+```js
+// tests/restaurants.service.test.js
+const restaurantService = require('../src/services/restaurants.service');
+
+describe('RestaurantService', () => {
+  afterEach(() => {
+    restaurantService.resetStore();
+  });
+
+  test('getAllRestaurants resolves with data', async () => {
+    const restaurants = await restaurantService.getAllRestaurants();
+    expect(Array.isArray(restaurants)).toBe(true);
+    expect(restaurants.length).toBeGreaterThan(0);
+  });
+
+  test('getAllRestaurantsSync returns data immediately', () => {
+    const restaurants = restaurantService.getAllRestaurantsSync();
+    expect(Array.isArray(restaurants)).toBe(true);
+    expect(restaurants.length).toBeGreaterThan(0);
+  });
+
+  test('createRestaurant appends a new entry', async () => {
+    const payload = {
+      name: '테스트 식당',
+      category: '테스트',
+      location: '가상 캠퍼스',
+      rating: 4.5,
+    };
+
+    const created = await restaurantService.createRestaurant(payload);
+    expect(created.id).toBeDefined();
+    expect(created.name).toBe(payload.name);
+
+    const all = await restaurantService.getAllRestaurants();
+    const found = all.find((item) => item.id === created.id);
+    expect(found).toBeTruthy();
+  });
+
+  test('createRestaurant rejects invalid payloads', async () => {
+    await expect(
+      restaurantService.createRestaurant({ name: '누락된 식당' })
+    ).rejects.toThrow("'category' is required");
+  });
+});
+
+```
 
 
 ### Step 6. API 응답 확인
@@ -217,7 +684,7 @@ curl -X POST https://pwd-week4-<username>.onrender.com/api/restaurants/popular
 
 ---
 
-### Step 10. pwd-week3 api 수정 후 Netlify 배포
+### Step 10. pwd-week3 src/services/api.jsx 수정 후 Netlify 재 배포
 ```jsx
 import axios from 'axios';
 
