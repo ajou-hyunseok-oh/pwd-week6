@@ -82,7 +82,7 @@ git commit -m "Init pwd-week4 : Express"
 git branch -m main
 
 # 원격(Remote) 저장소 'origin' 등록 (GitHub URL로 연결)
-git remote add origin https://github.com/[username]/pwd-week4.git
+git remote add origin https://github.com/<username>/pwd-week4.git
 
 # 로컬 main을 원격 origin/main으로 최초 푸시(Push) (-u: 업스트림(Upstream) 설정)
 #  → 이후에는 git push 만으로도 동일 브랜치에 푸시 가능
@@ -742,7 +742,7 @@ const fallbackRestaurants = [
   }
 ];
 
-const DEFAULT_BASE_URL = 'https://pwd-week4-hyunseokoh.onrender.com';
+const DEFAULT_BASE_URL = 'https://pwd-week4-<username>.onrender.com';
 const rawBaseUrl = import.meta.env?.VITE_API_BASE_URL || DEFAULT_BASE_URL;
 const API_BASE_URL = rawBaseUrl.endsWith('/') ? rawBaseUrl.slice(0, -1) : rawBaseUrl;
 
@@ -846,6 +846,3 @@ export default api;
 - GitHub ↔ Render 배포 흐름을 경험했습니다.
 
 다음 주차에서는 이 API에 데이터베이스와 인증을 추가해 확장할 예정입니다. 계속해서 화이팅! ✨
-
-# AI도구 사용이 신입 프로그래머에 미치는 영향 설문 조사
-(https://forms.gle/eho8ud3s8DaGPtTM6)
