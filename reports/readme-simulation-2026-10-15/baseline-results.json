@@ -1,0 +1,63 @@
+[
+  {
+    "check": "client-readme-before-install",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 2.65,
+    "passed": true
+  },
+  {
+    "check": "backend-readme-install",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 8.12,
+    "passed": true
+  },
+  {
+    "check": "backend-step3-before-source",
+    "finding": "server.ts does not exist before Step 5",
+    "reproduced": true
+  },
+  {
+    "check": "backend-readme-typecheck",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 1.57,
+    "passed": true
+  },
+  {
+    "check": "backend-readme-tests",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 1.7,
+    "passed": true
+  },
+  {
+    "check": "backend-readme-build",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 1.37,
+    "passed": true
+  },
+  {
+    "check": "client-readme-before-build",
+    "exit_code": 2,
+    "expected": 2,
+    "seconds": 1.37,
+    "passed": true
+  },
+  {
+    "check": "client-original-build",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 2.76,
+    "passed": true
+  },
+  {
+    "check": "client-original-lint",
+    "exit_code": 0,
+    "expected": 0,
+    "seconds": 1.32,
+    "passed": true
+  }
+]

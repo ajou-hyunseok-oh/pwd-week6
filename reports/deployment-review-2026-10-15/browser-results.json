@@ -1,0 +1,98 @@
+{
+  "results": [
+    {
+      "check": "production-list-cross-origin",
+      "passed": true
+    },
+    {
+      "check": "hash-detail-direct-entry-and-refresh",
+      "passed": true
+    },
+    {
+      "check": "popular-endpoint",
+      "passed": true
+    },
+    {
+      "check": "unsupported-admin-buttons-disabled",
+      "passed": true
+    },
+    {
+      "check": "admin-create-201-and-list-refresh",
+      "passed": true
+    },
+    {
+      "check": "submission-is-local-and-approval-posts-to-api",
+      "passed": true
+    },
+    {
+      "check": "missing-id-displays-error",
+      "passed": true
+    },
+    {
+      "check": "api-failure-displays-error",
+      "passed": true
+    },
+    {
+      "check": "five-restaurants-render-after-ui-mutations",
+      "passed": true
+    }
+  ],
+  "unhandled_errors": [],
+  "network": [
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/popular",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/999999",
+      "status": 404,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/999999",
+      "status": 404,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    }
+  ]
+}

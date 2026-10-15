@@ -1,0 +1,26 @@
+[
+  {
+    "command": "npm ci --include=dev",
+    "exit_code": 0,
+    "seconds": 4.16,
+    "log": "logs/client-ci---include=dev.txt"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "seconds": 1.45,
+    "log": "logs/client-run-typecheck.txt"
+  },
+  {
+    "command": "npm run lint",
+    "exit_code": 0,
+    "seconds": 1.5,
+    "log": "logs/client-run-lint.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "seconds": 3.14,
+    "log": "logs/client-run-build.txt"
+  }
+]

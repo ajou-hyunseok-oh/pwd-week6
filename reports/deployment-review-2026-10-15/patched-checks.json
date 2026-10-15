@@ -1,0 +1,53 @@
+[
+  {
+    "command": "npm ci --include=dev",
+    "exit_code": 0,
+    "log": "logs/patched-ci-include=dev.txt"
+  },
+  {
+    "command": "npm audit fix",
+    "exit_code": 1,
+    "log": "logs/patched-audit-fix.txt"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "log": "logs/patched-run-typecheck.txt"
+  },
+  {
+    "command": "npm test",
+    "exit_code": 0,
+    "log": "logs/patched-test.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "log": "logs/patched-run-build.txt"
+  },
+  {
+    "command": "npm audit --omit=dev --json",
+    "exit_code": 0,
+    "log": "logs/patched-audit-omit=dev-json.txt",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    }
+  },
+  {
+    "command": "npm audit --json",
+    "exit_code": 1,
+    "log": "logs/patched-audit-json.txt",
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 5,
+      "high": 29,
+      "critical": 0,
+      "total": 34
+    }
+  }
+]

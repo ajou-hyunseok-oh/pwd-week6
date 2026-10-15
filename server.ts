@@ -1,6 +1,6 @@
-﻿const createApp = require('./src/app');
+import createApp from './src/app';
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 const app = createApp();
 
 if (require.main === module) {
@@ -9,4 +9,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = app;
+export default app;

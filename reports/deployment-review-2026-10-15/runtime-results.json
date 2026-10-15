@@ -1,0 +1,254 @@
+{
+  "results": [
+    {
+      "check": "production-only-runtime-without-typescript",
+      "passed": true
+    },
+    {
+      "check": "GET /health",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "GET /",
+      "passed": true,
+      "status": 404
+    },
+    {
+      "check": "GET /api/restaurants",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "GET /api/restaurants/sync-demo",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "GET /api/restaurants/1",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "GET /api/restaurants/999999",
+      "passed": true,
+      "status": 404
+    },
+    {
+      "check": "GET /api/restaurants/popular?limit=2",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "check": "seed-count",
+      "passed": true,
+      "count": 3
+    },
+    {
+      "check": "popular-sort-and-limit",
+      "passed": true
+    },
+    {
+      "check": "create-menu-normalisation",
+      "passed": true
+    },
+    {
+      "check": "required-field-and-no-production-stack",
+      "passed": true
+    },
+    {
+      "check": "malformed-json-400",
+      "passed": true
+    },
+    {
+      "check": "oversized-json-413",
+      "passed": true
+    },
+    {
+      "check": "cors-preflight",
+      "passed": true,
+      "headers": {
+        "X-Powered-By": "Express",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "Vary": "Access-Control-Request-Headers",
+        "Access-Control-Allow-Headers": "content-type",
+        "Content-Length": "0",
+        "Date": "Thu, 15 Oct 2026 14:54:00 GMT",
+        "Connection": "close"
+      }
+    },
+    {
+      "check": "ten-concurrent-creates-have-unique-ids",
+      "passed": true
+    },
+    {
+      "check": "reset-without-authentication",
+      "passed": true
+    },
+    {
+      "check": "browser-suite",
+      "passed": true
+    },
+    {
+      "check": "restart-restores-three-seed-items",
+      "passed": true
+    }
+  ],
+  "edge_cases": [
+    {
+      "case": "non-numeric-limit",
+      "status": 200,
+      "response": {
+        "data": []
+      }
+    },
+    {
+      "case": "negative-limit",
+      "status": 200,
+      "response": {
+        "data": [
+          {
+            "id": 1,
+            "name": "송림식당",
+            "category": "한식",
+            "location": "경기 수원시 영통구 월드컵로193번길 21 원천동",
+            "priceRange": "7,000-13,000원",
+            "rating": 4.99,
+            "description": "최고의 한식 맛집입니다.",
+            "recommendedMenu": [
+              "순두부",
+              "김치찌개",
+              "소불고기",
+              "제육볶음"
+            ],
+            "likes": 0,
+            "image": "https://mblogthumb-phinf.pstatic.net/MjAyMjA2MTJfODEg/MDAxNjU0OTYzNTM3MjE1.1BfmrmOsz_B6DBHAnhQSs6qfNIDnssofR-DrzMfigIIg.JHHDheG6ifJjtfKUqLss_mLXWFE9fNJ5BmepNUVXSOog.PNG.cary63/image.png?type=w966"
+          },
+          {
+            "id": 2,
+            "name": "별미떡볶이",
+            "category": "분식",
+            "location": "경기 수원시 영통구 아주로 42 아카데미빌딩",
+            "priceRange": "7,000-10,000원",
+            "rating": 4.92,
+            "description": "바삭한 튀김과 함께하는 행복한 한입",
+            "recommendedMenu": [
+              "떡볶이",
+              "튀김",
+              "순대",
+              "어묵"
+            ],
+            "likes": 0,
+            "image": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA4MTJfMjcg%2FMDAxNzU0OTQ5ODk1Mjg0.GR6i3mNpJJXyqQrozGEJ65InCDBGlEmxc0aCeVHncJgg.sduDPX67J8hhoGxq4vLohpS4dXk1w-706dQLPfVs1iwg.JPEG%2Foutput%25A3%25DF1564208956.jpg"
+          },
+          {
+            "id": 3,
+            "name": "SOGO",
+            "category": "일식",
+            "location": "경기 수원시 영통구 월드컵로193번길 7",
+            "priceRange": "10,000-16,000원",
+            "rating": 4.89,
+            "description": "일식 맛집, 구 허수아비,",
+            "recommendedMenu": [
+              "냉모밀",
+              "김치돈까스나베",
+              "코돈부르"
+            ],
+            "likes": 0,
+            "image": "https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20190707_63%2F1562462598960nPDMy_JPEG%2FW7iKQEhTMzCF3flC1t0pzgzF.jpeg.jpg"
+          },
+          {
+            "id": 4,
+            "name": "배포 검토 생성 식당",
+            "category": "한식",
+            "location": "아주대 정문",
+            "priceRange": "정보 없음",
+            "rating": 4.7,
+            "description": "",
+            "recommendedMenu": [
+              "김밥",
+              "라면"
+            ],
+            "likes": 0,
+            "image": ""
+          }
+        ]
+      }
+    },
+    {
+      "case": "object-name",
+      "status": 201,
+      "response": {
+        "data": {
+          "id": 6,
+          "name": {
+            "invalid": "object"
+          },
+          "category": "한식",
+          "location": "캠퍼스",
+          "priceRange": "정보 없음",
+          "rating": 0,
+          "description": "",
+          "recommendedMenu": [],
+          "likes": 0,
+          "image": ""
+        }
+      }
+    },
+    {
+      "case": "whitespace-name",
+      "status": 201,
+      "response": {
+        "data": {
+          "id": 7,
+          "name": "   ",
+          "category": "한식",
+          "location": "캠퍼스",
+          "priceRange": "정보 없음",
+          "rating": 0,
+          "description": "",
+          "recommendedMenu": [],
+          "likes": 0,
+          "image": ""
+        }
+      }
+    },
+    {
+      "case": "non-numeric-rating",
+      "status": 201,
+      "response": {
+        "data": {
+          "id": 8,
+          "name": "평점 오류",
+          "category": "한식",
+          "location": "캠퍼스",
+          "priceRange": "정보 없음",
+          "rating": null,
+          "description": "",
+          "recommendedMenu": [],
+          "likes": 0,
+          "image": ""
+        }
+      }
+    },
+    {
+      "case": "rating-above-five",
+      "status": 201,
+      "response": {
+        "data": {
+          "id": 9,
+          "name": "평점 범위",
+          "category": "한식",
+          "location": "캠퍼스",
+          "priceRange": "정보 없음",
+          "rating": 100,
+          "description": "",
+          "recommendedMenu": [],
+          "likes": 0,
+          "image": ""
+        }
+      }
+    }
+  ]
+}

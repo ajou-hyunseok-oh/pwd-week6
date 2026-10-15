@@ -1,0 +1,129 @@
+{
+  "checks": [
+    {
+      "check": "Vite development server reads .env and loads real API",
+      "passed": true
+    },
+    {
+      "check": "Production static build lists real API data across origins",
+      "passed": true
+    },
+    {
+      "check": "Detail route and HashRouter reload preserve restaurant data",
+      "passed": true
+    },
+    {
+      "check": "Popular screen reads popular endpoint",
+      "passed": true
+    },
+    {
+      "check": "Admin disables unsupported update/delete operations",
+      "passed": true
+    },
+    {
+      "check": "Admin creates a restaurant on backend and list reflects it",
+      "passed": true
+    },
+    {
+      "check": "Submission stays in LocalStorage and approval creates backend restaurant",
+      "passed": true
+    },
+    {
+      "check": "Missing restaurant displays error instead of fallback data",
+      "passed": true
+    },
+    {
+      "check": "Missing VITE_API_BASE_URL produces an explicit configuration error",
+      "passed": true
+    },
+    {
+      "check": "No unhandled browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/popular",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 201,
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/999",
+      "status": 404,
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:10000/api/restaurants/999",
+      "status": 404,
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "consoleMessages": [
+    {
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    }
+  ]
+}

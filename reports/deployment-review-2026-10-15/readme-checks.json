@@ -1,0 +1,26 @@
+[
+  {
+    "command": "npm install --include=dev",
+    "exit_code": 0,
+    "seconds": 7.42,
+    "log": "logs/readme-install---include=dev.txt"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "seconds": 1.69,
+    "log": "logs/readme-run-typecheck.txt"
+  },
+  {
+    "command": "npm test",
+    "exit_code": 0,
+    "seconds": 1.49,
+    "log": "logs/readme-test-run.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "seconds": 1.55,
+    "log": "logs/readme-run-build.txt"
+  }
+]

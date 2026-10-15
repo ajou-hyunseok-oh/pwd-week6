@@ -1,10 +1,10 @@
-﻿const express = require('express');
-const cors = require('cors');
-const restaurantsRouter = require('./routes/restaurants.routes');
-const notFound = require('./middleware/notFound.middleware');
-const errorHandler = require('./middleware/error.middleware');
+import express, { type Express } from 'express';
+import cors from 'cors';
+import restaurantsRouter from './routes/restaurants.routes';
+import notFound from './middleware/notFound.middleware';
+import errorHandler from './middleware/error.middleware';
 
-function createApp() {
+export default function createApp(): Express {
   const app = express();
 
   app.use(cors());
@@ -23,4 +23,3 @@ function createApp() {
   return app;
 }
 
-module.exports = createApp;

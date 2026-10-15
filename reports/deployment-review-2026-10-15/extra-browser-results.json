@@ -1,0 +1,15 @@
+[
+  {
+    "check": "missing-env-build-succeeds-but-ui-reports-config-error",
+    "passed": true,
+    "api_requests": []
+  },
+  {
+    "check": "invalid-object-name-breaks-react-rendering",
+    "defect_reproduced": true,
+    "http_status": 201,
+    "errors": [
+      "Minified React error #31; visit https://react.dev/errors/31?args[]=object%20with%20keys%20%7Binvalid%7D for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+    ]
+  }
+]

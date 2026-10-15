@@ -1,0 +1,26 @@
+[
+  {
+    "command": "npm ci --include=dev",
+    "exit_code": 0,
+    "seconds": 3.82,
+    "log": "logs/repository-ci---include=dev.txt"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "seconds": 1.67,
+    "log": "logs/repository-run-typecheck.txt"
+  },
+  {
+    "command": "npm test",
+    "exit_code": 0,
+    "seconds": 1.84,
+    "log": "logs/repository-test-run.txt"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "seconds": 1.63,
+    "log": "logs/repository-run-build.txt"
+  }
+]

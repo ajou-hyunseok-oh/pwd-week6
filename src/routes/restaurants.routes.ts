@@ -1,7 +1,7 @@
-﻿const express = require('express');
-const restaurantsController = require('../controllers/restaurants.controller');
+import { Router } from 'express';
+import * as restaurantsController from '../controllers/restaurants.controller';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', restaurantsController.getRestaurants);
 router.get('/sync-demo', restaurantsController.getRestaurantsSync);
@@ -10,4 +10,4 @@ router.get('/:id', restaurantsController.getRestaurant);
 router.post('/', restaurantsController.createRestaurant);
 router.post('/reset-demo', restaurantsController.resetDemoData);
 
-module.exports = router;
+export default router;

@@ -1,0 +1,26 @@
+[
+  {
+    "check": "repository-locked-install",
+    "passed": true,
+    "seconds": 1.62
+  },
+  {
+    "check": "repository-typecheck",
+    "passed": true,
+    "seconds": 1.55
+  },
+  {
+    "check": "repository-tests",
+    "passed": true,
+    "seconds": 1.68
+  },
+  {
+    "check": "repository-build",
+    "passed": true,
+    "seconds": 1.53
+  },
+  {
+    "check": "repository-locked-production-api",
+    "passed": true
+  }
+]

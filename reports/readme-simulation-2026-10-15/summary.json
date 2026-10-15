@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-15",
+  "result": "PASS after README corrections",
+  "environment": {
+    "node": "v24.21.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "backend": {
+    "source": "README TypeScript and JSON blocks reconstructed in an empty directory",
+    "tests_passed": 22,
+    "production_install_build": true,
+    "standalone_runtime_without_typescript_or_tsx": true
+  },
+  "repository": {
+    "source": "current working-tree source plus original package-lock.json",
+    "tests_passed": 22,
+    "production_api": true
+  },
+  "client": {
+    "source": "isolated copy of pwd-week5 with corrected README integration instructions",
+    "typecheck": true,
+    "lint": true,
+    "build": true
+  },
+  "browser": {
+    "passed": 10,
+    "unhandled_errors": 0
+  },
+  "platform_simulation": {
+    "backend_port": 10000,
+    "frontend": "separate-origin static production build",
+    "cors": true,
+    "preflight": true,
+    "restart_reset": true,
+    "explicit_env_file": true
+  },
+  "not_executed": [
+    "Render/Vercel account login or resource creation",
+    "Git commit or push",
+    "Public HTTPS/DNS/actual platform deployment",
+    "Windows PowerShell execution",
+    "Linux container execution"
+  ],
+  "client_application_status": "Integration applied to a temporary copy; apply README Step 11 to the actual client repository before deployment"
+}

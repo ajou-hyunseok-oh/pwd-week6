@@ -1,4 +1,17 @@
-﻿class Restaurant {
+import type { RestaurantData, RestaurantInput } from '../types/restaurant.types';
+
+export default class Restaurant implements RestaurantData {
+  id: number;
+  name: string;
+  category: string;
+  location: string;
+  priceRange: string;
+  rating: number;
+  description: string;
+  recommendedMenu: string[];
+  likes: number;
+  image: string;
+
   constructor({
     id,
     name,
@@ -10,7 +23,7 @@
     recommendedMenu = [],
     likes = 0,
     image = ''
-  }) {
+  }: RestaurantInput) {
     this.id = Number(id);
     this.name = name;
     this.category = category;
@@ -23,10 +36,9 @@
     this.image = image;
   }
 
-  updateLikes(likes) {
+  updateLikes(likes: number | string): this {
     this.likes = Number(likes);
     return this;
   }
 }
 
-module.exports = Restaurant;

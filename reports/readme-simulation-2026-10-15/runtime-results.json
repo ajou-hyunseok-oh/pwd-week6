@@ -1,0 +1,20 @@
+[
+  {
+    "check": "browser-e2e",
+    "passed": true,
+    "seconds": 5.12
+  },
+  {
+    "check": "browser-created-and-approved-data-present-in-backend",
+    "passed": true,
+    "restaurant_count": 5
+  },
+  {
+    "check": "backend-restart-restores-seed-data",
+    "passed": true
+  },
+  {
+    "check": "explicit-node-env-file-startup",
+    "passed": true
+  }
+]

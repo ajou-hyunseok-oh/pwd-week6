@@ -1,88 +1,87 @@
-﻿const path = require('path');
-const { readFile } = require('fs/promises');
-const { readFileSync } = require('fs');
-const Restaurant = require('../models/restaurant.model');
+import path from 'node:path';
+import { readFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import Restaurant from '../models/restaurant.model';
+import type { CreateRestaurantInput, RestaurantInput } from '../types/restaurant.types';
+import HttpError from '../utils/httpError';
 
 const DATA_PATH = path.join(__dirname, '..', 'data', 'restaurants.json');
-let restaurantCache = loadRestaurantsSync();
+let restaurantCache: Restaurant[] = loadRestaurantsSync();
 
-function loadRestaurantsSync() {
+export function loadRestaurantsSync(): Restaurant[] {
   const raw = readFileSync(DATA_PATH, 'utf8');
-  const parsed = JSON.parse(raw);
+  const parsed: RestaurantInput[] = JSON.parse(raw);
   return parsed.map((item) => new Restaurant(item));
 }
 
-async function loadRestaurantsAsync() {
+export async function loadRestaurantsAsync(): Promise<Restaurant[]> {
   const raw = await readFile(DATA_PATH, 'utf8');
-  const parsed = JSON.parse(raw);
+  const parsed: RestaurantInput[] = JSON.parse(raw);
   return parsed.map((item) => new Restaurant(item));
 }
 
-async function ensureCache() {
+async function ensureCache(): Promise<Restaurant[]> {
   if (!restaurantCache || restaurantCache.length === 0) {
     restaurantCache = await loadRestaurantsAsync();
   }
   return restaurantCache;
 }
 
-function nextRestaurantId() {
+function nextRestaurantId(): number {
   return restaurantCache.reduce((max, restaurant) => Math.max(max, restaurant.id), 0) + 1;
 }
 
-function cloneCollection(collection) {
+function cloneCollection(collection: Restaurant[]): Restaurant[] {
   return collection.map((restaurant) => new Restaurant(restaurant));
 }
 
 // Simulates non-blocking I/O latency so students can compare async vs sync flows.
-async function simulateLatency(delayInMs = 20) {
+async function simulateLatency(delayInMs = 20): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, delayInMs));
 }
 
-async function getAllRestaurants() {
+export async function getAllRestaurants(): Promise<Restaurant[]> {
   await ensureCache();
   await simulateLatency();
   return cloneCollection(restaurantCache);
 }
 
-function getAllRestaurantsSync() {
+export function getAllRestaurantsSync(): Restaurant[] {
   if (!restaurantCache || restaurantCache.length === 0) {
     restaurantCache = loadRestaurantsSync();
   }
   return cloneCollection(restaurantCache);
 }
 
-async function getRestaurantById(id) {
+export async function getRestaurantById(id: number | string): Promise<Restaurant | null> {
   await ensureCache();
   await simulateLatency();
   const numericId = Number(id);
   return restaurantCache.find((restaurant) => restaurant.id === numericId) || null;
 }
 
-async function getPopularRestaurants(limit = 5) {
+export async function getPopularRestaurants(limit = 5): Promise<Restaurant[]> {
   const restaurants = await getAllRestaurants();
   return restaurants
     .sort((a, b) => b.rating - a.rating)
     .slice(0, limit);
 }
 
-async function createRestaurant(payload) {
+export async function createRestaurant(payload: Partial<CreateRestaurantInput>): Promise<Restaurant> {
   await ensureCache();
   await simulateLatency();
 
-  const requiredFields = ['name', 'category', 'location'];
-  const missingField = requiredFields.find((field) => !payload[field]);
-
-  if (missingField) {
-    const error = new Error(`'${missingField}' is required`);
-    error.statusCode = 400;
-    throw error;
+  const { name, category, location } = payload;
+  if (!name || !category || !location) {
+    const missingField = !name ? 'name' : !category ? 'category' : 'location';
+    throw new HttpError(400, `'${missingField}' is required`);
   }
 
   const restaurant = new Restaurant({
     id: nextRestaurantId(),
-    name: payload.name,
-    category: payload.category,
-    location: payload.location,
+    name,
+    category,
+    location,
     priceRange: payload.priceRange ?? '정보 없음',
     rating: payload.rating ?? 0,
     description: payload.description ?? '',
@@ -95,17 +94,7 @@ async function createRestaurant(payload) {
   return new Restaurant(restaurant);
 }
 
-function resetStore() {
+export function resetStore(): void {
   restaurantCache = loadRestaurantsSync();
 }
 
-module.exports = {
-  getAllRestaurants,
-  getAllRestaurantsSync,
-  getRestaurantById,
-  getPopularRestaurants,
-  createRestaurant,
-  resetStore,
-  loadRestaurantsSync,
-  loadRestaurantsAsync,
-};

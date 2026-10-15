@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-15",
+  "environment": {
+    "node": "24.21.0",
+    "npm": "11.20.0",
+    "os": "macOS",
+    "arch": "arm64",
+    "playwright": "1.64.1",
+    "browser": "Chrome headless"
+  },
+  "source_sha256": {
+    "jest.config.cjs": "35868fe56fcfaa0f54972a6f6135f840a8a37f56cc333b793eb3e9433f2c2aa2",
+    "package-lock.json": "a26983af7d2cfc1b190231c2a5f0f70f3813c329cd73b3ec846e9ba544da4e33",
+    "package.json": "6201e09e8740a1f38d0d730b768ce1c21d0f22c140ebc46102536645f69f5ab7",
+    "tsconfig.build.json": "f6f8fdb013732717e9816b6254ef2fdc58e3e326797078e584de5b5db2308ffa",
+    "tsconfig.json": "154467d413fee894d6f92570573126011c1aa63d57d370854e279260250bf1be",
+    "server.ts": "892282f1f3a66d05b89862123bdaea1e79511e3404e62f2a9a272cfd2d7538a2",
+    "tests/restaurants.service.test.ts": "d490e5edfc65908f1da740bff4607273a68c820580c305f2060fd19cea5b430a",
+    "tests/restaurants.routes.test.ts": "5a3f58e61fc7193fb633f64a7838cc89b8f343e18be6fdafb1eec45e001a5d72",
+    "scripts/copy-data.ts": "a412c9b4cfcdb470de161984d12caca88c0d2594897c990e9320246098682d35",
+    "src/app.ts": "deeb0fa97bbeb787f9cbd9d7f7a00b260ada5c2bd2ddf08d38799fd7c7dcbbc4",
+    "src/middleware/notFound.middleware.ts": "f6c88ac0b6df38aeb5581376184d153b1aa36b44014e14f61fba141477ed70a9",
+    "src/middleware/error.middleware.ts": "7b543aa38986af6b5f4776f3aa3cd2bbdcce468e20595b269f0d629dd0197293",
+    "src/types/restaurant.types.ts": "8da10e7d9210b4dd30690af126d590854ce5fdcf872054d8f11af12cfb35770b",
+    "src/types/api.types.ts": "aec2815aee57fb84461dd61789cb44c3eb4c31b486eeb404c9fcc37c33edb603",
+    "src/utils/httpError.ts": "09c9c8ffdce84eda5c44a1e37b446d6368e29d371b3cd38f3818fe3c70b5159c",
+    "src/utils/asyncHandler.ts": "28186ae3453dd4dd461ecca7de8b9924e756b28bd5c7a26807cf411cd49528b6",
+    "src/models/restaurant.model.ts": "8fd3aadf3efe3720bbe278e4b38d9d6e8e86d4fe44f7183255338b8b1e9cbc78",
+    "src/controllers/restaurants.controller.ts": "2ff0602596d9038b1c652758c609c5e67e5c4ba121e8e3408614ec43597e6b30",
+    "src/data/restaurants.json": "644cc8c8b36ab0dbff5a424d527a19d28e473da44888bcd434c1e99098330431",
+    "src/routes/restaurants.routes.ts": "ea3debce27f67156d782643b32c79567ac1652d5f4701bae1fdf4f41094c8ca7",
+    "src/services/restaurants.service.ts": "b199dc24cf867b9a5fa6e69678e9d2f8733997618d7551d168470377697ec9bc"
+  },
+  "project_source_and_lock_unchanged_by_review": true,
+  "audited_readme_sha256": "47c60e96b0a3b52142c735b6e30a58a5cef76ba1fca76de6d78a8b2788fc3fea",
+  "repository": {
+    "install": "npm ci --include=dev",
+    "typecheck": true,
+    "jest_tests_passed": 22,
+    "build": true
+  },
+  "readme_reconstruction": {
+    "install": "npm install --include=dev",
+    "typecheck": true,
+    "jest_tests_passed": 22,
+    "build": true
+  },
+  "client": {
+    "source": "Temporary copy of ../pwd-week5 with README Step 11 applied",
+    "typecheck": true,
+    "lint": true,
+    "build": true,
+    "api_url_in_bundle": true,
+    "missing_api_url_build_still_succeeds": true
+  },
+  "runtime_checks": 19,
+  "browser_normal_scenarios": 9,
+  "browser_normal_unhandled_errors": 0,
+  "extra_browser_checks": {
+    "missing_api_url_error_displayed": true
+  },
+  "not_executed": [
+    "Authenticated Render/Vercel UI and account resource creation",
+    "Actual platform builds/public HTTPS deployments/TLS/DNS",
+    "Git commit or push",
+    "Linux container (Docker daemon unavailable)",
+    "Windows PowerShell",
+    "Actual Free spin-down/spin-up",
+    "External restaurant image availability"
+  ],
+  "assessment": {
+    "criteria_updated_on": "2026-10-16",
+    "evidence_date": "2026-10-15",
+    "success_criteria": [
+      "Render backend deployment and working health/read/create APIs",
+      "Vercel client deployment and backend data displayed in list/detail/popular views",
+      "Client create and submission approval use backend APIs and update the list"
+    ],
+    "simulation_result": "PASS",
+    "actual_platform_deployment_performed": false
+  }
+}

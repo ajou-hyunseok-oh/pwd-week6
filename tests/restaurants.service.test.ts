@@ -1,4 +1,4 @@
-﻿const restaurantService = require('../src/services/restaurants.service');
+import * as restaurantService from '../src/services/restaurants.service';
 
 describe('RestaurantService', () => {
   afterEach(() => {
@@ -15,6 +15,17 @@ describe('RestaurantService', () => {
     const restaurants = restaurantService.getAllRestaurantsSync();
     expect(Array.isArray(restaurants)).toBe(true);
     expect(restaurants.length).toBeGreaterThan(0);
+  });
+
+  test('async and sync file loaders read the same seed data', async () => {
+    expect(await restaurantService.loadRestaurantsAsync()).toEqual(restaurantService.loadRestaurantsSync());
+  });
+
+  test('returned collections do not expose cached menu arrays', async () => {
+    const restaurants = await restaurantService.getAllRestaurants();
+    restaurants[0].recommendedMenu.push('외부 변경');
+    const fresh = restaurantService.getAllRestaurantsSync();
+    expect(fresh[0].recommendedMenu).not.toContain('외부 변경');
   });
 
   test('createRestaurant appends a new entry', async () => {
